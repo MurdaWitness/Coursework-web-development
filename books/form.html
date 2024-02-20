@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Книги</title>
+</head>
+<body>
+    <form method = "POST" id = "fieldsForm">
+
+        <!-- Скрытые поля для записи "старых" значений при работе с кнопкой "Изменить запись" -->
+        <input type = "hidden" id = "old0" name = "old0">
+        <input type = "hidden" id = "old1" name = "old1">
+        <input type = "hidden" id = "old2" name = "old2">
+		<input type = "hidden" id = "old3" name = "old3">
+        <input type = "hidden" id = "old4" name = "old4">
+        <input type="hidden" id="choose_but" name="choose_but">
+        
+        <table cellspacing="0" cellpadding="4" border="0">
+            <tr>
+                <th class="stR"><label for = "isbn"> ISBN </label></th>
+                <td><input type = "text" id = "isbn" name = "new0" pattern="\d{3}-\d{1}-\d{3}-\d{5}" placeholder = "999-9-999-99999" maxlength = "15" size = "15"></td>
+            </tr>
+            <tr>
+                <th class="stR"><label for = "fio"> ФИО автора </label></th>
+                <td><input type = "text" id = "fio" name = "new1" placeholder = "Иванов Иван Иванович" maxlength = "50" size = "50"></td>
+            </tr>
+            <tr>
+                <th class="stR"><label for = "bookName"> Название книги </label></th>
+                <td><input type = "text" id = "bookName" name = "new2" placeholder = "Самоучитель по HTML" maxlength = "30" size = "30"></td>
+            </tr>
+
+            <tr>
+                <th class="stR"><label for = "yearNum"> Год издания </label></th>
+                <td><input type = "number" id = "yearNum" name = "new3" placeholder = "2023" maxlength = "4" min="1" max="9999" size = "4"></td>
+            </tr>
+            
+            <tr>
+                <th class="stR"><label for = "cost"> Цена, руб. </label></th>
+                <td><input type = "number" id = "cost" name = "new4" placeholder = "999" maxlength = "10" min="1" max="9999999999" size = "10"></td>
+            </tr>
+
+            <tr>
+                <th class="stR"><button type = "button"  onclick = "ValidateBooks('insert')"> Создать новую запись </button></th>
+                <th class="stR"><button type = "button"  onclick = "ValidateBooks('update')"> Обновить выбранную запись </button></th>
+
+            </tr>
+            <tr>		
+                <th class="stR"><input type="reset" value="Очистить поля формы"></th>
+                <th class="stR"><button type = "button"  onclick = "ValidateBooks('delete')"> Удалить выбранную запись </button></th>
+
+            </tr>	
+        </table>
+    </form>
+</body>
+</html>
+

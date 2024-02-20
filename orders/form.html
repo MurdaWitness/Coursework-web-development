@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заказы</title>
+</head>
+<body>
+    <form method = "POST" id = "fieldsForm">
+
+        <!-- Скрытые поля для записи "старых" значений при работе с кнопкой "Изменить запись" -->
+        <input type = "hidden" id = "old0" name = "old0">
+        <input type = "hidden" id = "old1" name = "old1">
+        <input type = "hidden" id = "old2" name = "old2">
+		<input type = "hidden" id = "old3" name = "old3">
+        <input type="hidden" id="choose_but" name="choose_but">
+        
+        <table cellspacing="0" cellpadding="4" border="0">
+            <tr>
+                <th class="stR"><label for = "orderNum"> № заказа </label></th>
+                <td><input type = "number" id = "orderNum" name = "new0" placeholder = "123456" maxlength = "6" min="1" max="999999" size = "6"></td>
+            </tr>
+            <tr>
+                <th class="stR"><label for = "adress"> Адрес доставки </label></th>
+                <td><input type = "text" id = "adress" name = "new1" placeholder = "г. Москва, ул. Савушкина, д. 55" maxlength = "50" size = "50"></td>
+            </tr>
+            <tr>
+                <th class="stR"><label for = "orderDate"> Дата заказа </label></th>
+                <td><input type = "text" id = "orderDate" name = "new2" placeholder = "01.01.2023" maxlength = "10" size = "10"></td>
+            </tr>
+
+            <tr>
+                <th class="stR"><label for = "completionDate"> Дата выполнения заказа </label></th>
+                <td><input type = "text" id = "completionDate" name = "new3" placeholder = "02.01.2023" maxlength = "10" size = "10"></td>
+            </tr>
+            
+            <tr>
+                <th class="stR"><button type = "button"  onclick = "ValidateOrders('insert')"> Создать новую запись </button></th>
+                <th class="stR"><button type = "button"  onclick = "ValidateOrders('update')"> Обновить выбранную запись </button></th>
+
+            </tr>
+            <tr>		
+                <th class="stR"><input type="reset" value="Очистить поля формы"></th>
+                <th class="stR"><button type = "button"  onclick = "ValidateOrders('delete')"> Удалить выбранную запись </button></th>
+            </tr>	
+        </table>
+    </form>
+</body>
+</html>
+

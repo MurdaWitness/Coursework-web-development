@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cоздание, обновление и удаление записей в таблице</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="books/validateBooksData.js"></script>
+	<script src="orders/validateOrdersData.js"></script>
+    <script src="booksOfOrder/validateBooksOfOrderData.js"></script>
+    <script src="report/validateReportData.js"></script>
+    <script>
+
+        function showError(errorText = '', colorText = '#EEE') {
+            if (errorText) alert(errorText);
+        }
+
+        var xhr = false;
+        if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
+        else if (window.ActiveXObject) xhr = new ActiveXObject("Microsoft.XMLHTTP");
+
+        function getData(file, data, callback) {
+            if (xhr) {
+                xhr.open("POST", file, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.status == 200 && xhr.readyState == 4 && callback) {
+                        callback(xhr.responseText);
+                    }
+                }
+                xhr.send(data);
+            }
+            else document.write("ошибка Ajax");
+        }
+
+
+        function open(file, callback) {
+            if (xhr) {
+                xhr.open("GET", file, false);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200 && callback) {
+                        callback(xhr.responseText);
+                    }
+                }
+                xhr.send();
+            }
+        }
+
+        function setForm(data) {
+            document.getElementsByTagName("aside")[0].innerHTML = data;
+        }
+        function setTable(data) {
+            document.getElementsByTagName("article")[0].innerHTML = data;
+        }
+
+
+        function setField(nameFolder) {
+            open(nameFolder + "/form.html", setForm);
+            open(nameFolder + "/table.php", setTable);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="header">
+        <h2> Web-приложение "Книжный интернет магазин" </h2>
+    </div>
+    <div id="nav">
+        <button type="button" id="books" name="books" value="Книги" onclick="setField('books')">Книги</button>
+		<button type="button" id="orders" name="orders" value="Заказы" onclick="setField('orders')">Заказы</button>
+        <button type="button" id="booksOfOrder" name="booksOfOrder" value="Книги заказа" onclick="setField('booksOfOrder')">Книги заказа</button>
+        <button type="button" id="report" name="report" value="Сводный отчет" onclick="setField('report')">Сводный отчет</button>
+    </div>
+
+    <div id="base">
+        <article> Здесь будут выводиться таблицы </article>
+        <aside> Здесь будет выводиться форма выбранной таблицы </aside>
+    </div>
+
+    <div id="footer">&#169; Гавришин Андрей Дмитриевич ИВТ-41, филиал "Котельники" университета "Дубна", 2023 г.</div>
+
+	<script>
+	// Скрипт статичного выделения кнопки, при нажатии на неё
+	document.addEventListener("DOMContentLoaded", function () {
+		var navButtons = document.querySelectorAll("#nav button");
+
+		navButtons.forEach(function (button) {
+			button.addEventListener("click", function () {
+				// Удаляем класс "active" у всех кнопок
+				navButtons.forEach(function (btn) {
+					btn.classList.remove("active");
+				});
+
+				// Добавляем класс "active" к текущей кнопке
+				button.classList.add("active");
+			});
+		});
+	});
+	</script>
+
+    <script>
+        var tab = document.getElementsByTagName("article")[0];
+        tab.addEventListener("click", function (event) {
+            var click_cell = event.target;
+            var click_row = click_cell.parentElement;
+            if (click_row.tagName != "TR") console.log("Кликать нужно по таблице !");
+            else {
+                var tmp = click_row.parentElement.parentElement;
+                if (tmp.className == "Filter_InventoryNum" || tmp.className == "End_Tab") {
+                    console.log("На этой таблице не работает обработчик !");
+                }
+                else {
+                    var click_table = click_row.parentElement.children;
+                    for (let i = 1; i < click_table.length; i++) {
+                        if (click_table[i] === click_row) {
+                            var cell_update = click_table[i].getElementsByTagName("td");
+                            for (let j = 0; j < cell_update.length; j++) {
+                                document.getElementsByName("new" + j)[0].value = cell_update[j].innerHTML;
+                                document.getElementById("old" + j).value = cell_update[j].innerHTML;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
